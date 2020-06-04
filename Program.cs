@@ -1,41 +1,29 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
+using AutoMapper.Configuration;
 
-namespace Mapper
+namespace MappingPrj
 {
-    struct Item
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
-    }
-
     public class Program
     {
         public static void Main()
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Dictionary<string, object>, Class2Dict>().ForMember(a => a.MyItem, b => b.MapFrom(d => d)));
-            //var userPlan = defConfig.BuildExecutionPlan(typeof(Class2Dict), typeof(Dictionary<string, object>));
+            var props = new Props();
 
-            var mapper = config.CreateMapper();
-            var class2dict = new Class2Dict();
+            var cfg = new MapperConfigurationExpression();
+            var count = cfg.Mappers.Count;
+            var test = cfg.Mappers[26];
 
-            class2dict.Foo = "123";
-            class2dict.Bar = 456;
-            class2dict.MyItem = new Item { Name = "Name", Value = "Value" };
+            cfg.CreateMap<Item, Dictionary<string, object>>();
 
-            var obj1 = mapper.Map<Class2Dict, Dictionary<string, object>>(class2dict);
-            var obj = mapper.Map<Dictionary<string, object>>(class2dict);
+            //cfg.CreateMap<Props, Dictionary<string, object>>().ReverseMap(); // IMappingExpression
+
+            var config = new MapperConfiguration(cfg);
+            var execPlan1 = config.BuildExecutionPlan(typeof(Props), typeof(Dictionary<string, object>));
+            var execPlan2 = config.BuildExecutionPlan(typeof(Item), typeof(Dictionary<string, object>));
+            var mapper = new Mapper(config);
+
+            var obj = mapper.Map<Props, Dictionary<string, object>>(props);
         }
     }
-
-
-    class Class2Dict
-    {
-        public string Foo { get; set; }
-        public int Bar { get; set; }
-        public Item MyItem { get; set; }
-    }
-
-
-
 }
