@@ -11,6 +11,6 @@ namespace AutoMap
     {
         public string Foo { get; set; } = "123";
         public int Bar { get; set; } = 456;
-        public Item MyItem { get; set; } = new Item { Name = "Name", Value = "Value" };
+        //public Item MyItem { get; set; } = new Item { Name = "Name", Value = "Value" };
     }
 }

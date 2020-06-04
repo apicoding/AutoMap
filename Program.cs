@@ -8,9 +8,29 @@ namespace AutoMap
     {
         public static void Main()
         {
+            Props2DictMappingUsingKVTest();
             Props2DictMappingTest();
             PersonMappingTest();
         }
+
+
+
+        public static void Props2DictMappingUsingKVTest()
+        {
+            var props = new Props();
+
+            var cfg = new MapperConfigurationExpression();
+            var config = new MapperConfiguration(cfg);
+          
+            cfg.CreateMap<Props, KeyValuePair<string, object>>()
+                 .ConstructUsing(kvp => new KeyValuePair<string, object>("Bar", kvp.Bar));
+
+            var mapper = new Mapper(config);
+            var execPlan = config.BuildExecutionPlan(typeof(Props), typeof(KeyValuePair<string, object>));
+
+            var dict = mapper.Map<Props, KeyValuePair<string, object>>(props);
+        }
+
 
 
         public static void Props2DictMappingTest()
@@ -28,6 +48,7 @@ namespace AutoMap
             var config = new MapperConfiguration(cfg);
             var execPlan1 = config.BuildExecutionPlan(typeof(Props), typeof(Dictionary<string, object>));
             var execPlan2 = config.BuildExecutionPlan(typeof(Item), typeof(Dictionary<string, object>));
+
             var mapper = new Mapper(config);
 
             var dict = mapper.Map<Props, Dictionary<string, object>>(props);
