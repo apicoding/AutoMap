@@ -46,7 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class2Dict.cs" />
+    <Compile Include="Person.cs" />
+    <Compile Include="PersonDTO.cs" />
+    <Compile Include="Props.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

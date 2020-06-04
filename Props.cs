@@ -1,5 +1,5 @@
 ﻿
-namespace MappingPrj
+namespace AutoMap
 {
     internal struct Item
     {
